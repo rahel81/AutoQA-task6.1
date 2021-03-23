@@ -26,19 +26,19 @@ public class DashboardPage {
         heading.shouldBe(Condition.visible);
     }
 
-    public static TransferPage transferMoney(String number) {
+    public TransferPage transferMoney(String number) {
         $$(".list__item").find(text(number.substring(15, 19))).$("button").click();
         return new TransferPage();
     }
 
-    private static int extractBalance(String text) {
+    private int extractBalance(String text) {
         val start = text.indexOf(balanceStart);
         val finish = text.indexOf(balanceFinish);
         val value = text.substring(start + balanceStart.length(), finish);
         return Integer.parseInt(value);
     }
 
-    public static int getCardBalance(String number) {
+    public int getCardBalance(String number) {
         val text = cards.find(text(number.substring(15, 19))).getText();
         return extractBalance(text);
     }

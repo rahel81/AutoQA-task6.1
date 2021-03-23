@@ -30,12 +30,12 @@ public class MoneyTransferTest {
     @Test
     void shouldTransferMoneyCard1toCard2() {
         DashboardPage dashboardPage = shouldOpenPage();
-        val balanceCard1BeforeTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());  //получение баланса 1 карты до перевода
-        val balanceCard2BeforeTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());  //получение баланса 2 карты до перевода
-        val transferPage = DashboardPage.transferMoney(DataHelper.getNumberCard2().getNumber()); //выбор карты для пополнения
-        TransferPage.transferMoney(transferValid, DataHelper.getNumberCard1().getNumber());  //ввод данных
-        val balanceCard1AfterTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());  //получение баланса
-        val balanceCard2AfterTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());  //получение баланса
+        val balanceCard1BeforeTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());
+        val balanceCard2BeforeTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());
+        val transferPage = dashboardPage.transferMoney(DataHelper.getNumberCard2().getNumber());
+        transferPage.transferMoney(transferValid, DataHelper.getNumberCard1().getNumber());
+        val balanceCard1AfterTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());
+        val balanceCard2AfterTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());
         int transferSum = Integer.parseInt(transferValid);
         assertEquals(balanceCard1BeforeTransfer - transferSum, balanceCard1AfterTransfer);
         assertEquals(balanceCard2BeforeTransfer + transferSum, balanceCard2AfterTransfer);
@@ -44,12 +44,12 @@ public class MoneyTransferTest {
     @Test
     void shouldTransferMoneyCard2toCard1() {
         DashboardPage dashboardPage = shouldOpenPage();
-        val balanceCard1BeforeTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());  //получение баланса 1 карты до перевода
-        val balanceCard2BeforeTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());  //получение баланса 2 карты до перевода
-        val transferPage = DashboardPage.transferMoney(DataHelper.getNumberCard1().getNumber()); //выбор карты для пополнения
-        TransferPage.transferMoney(transferValid, DataHelper.getNumberCard2().getNumber());  //ввод данных
-        val balanceCard1AfterTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());  //получение баланса
-        val balanceCard2AfterTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());  //получение баланса
+        val balanceCard1BeforeTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());
+        val balanceCard2BeforeTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());
+        val transferPage = dashboardPage.transferMoney(DataHelper.getNumberCard1().getNumber());
+        transferPage.transferMoney(transferValid, DataHelper.getNumberCard2().getNumber());
+        val balanceCard1AfterTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());
+        val balanceCard2AfterTransfer = dashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());
         int transferSum = Integer.parseInt(transferValid);
         assertEquals(balanceCard1BeforeTransfer + transferSum, balanceCard1AfterTransfer);
         assertEquals(balanceCard2BeforeTransfer - transferSum, balanceCard2AfterTransfer);
@@ -58,12 +58,8 @@ public class MoneyTransferTest {
     @Test
     void shouldTransferMoneyCard1toCard2Invalid() {
         DashboardPage dashboardPage = shouldOpenPage();
-        val balanceCard1BeforeTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());  //получение баланса 1 карты до перевода
-        val balanceCard2BeforeTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber());  //получение баланса 2 карты до
-        val transferPage = DashboardPage.transferMoney(DataHelper.getNumberCard2().getNumber()); //выбор карты для пополнения
-        TransferPage.transferMoney(transferInvalid, DataHelper.getNumberCard1().getNumber());
-        val balanceCard1AfterTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard1().getNumber());  //получение баланса
-        val balanceCard2AfterTransfer = DashboardPage.getCardBalance(DataHelper.getNumberCard2().getNumber()); //получение баланса
+        val transferPage = dashboardPage.transferMoney(DataHelper.getNumberCard2().getNumber());
+        transferPage.transferMoney(transferInvalid, DataHelper.getNumberCard1().getNumber());
         transferPage.transferMoneyError();
     }
 }
